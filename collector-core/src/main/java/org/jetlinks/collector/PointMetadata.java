@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetlinks.collector.address.PointAddress;
+import org.jetlinks.collector.info.CodecInfo;
 import org.jetlinks.core.codec.Codec;
 import org.jetlinks.core.codec.layout.ByteLayout;
 import org.jetlinks.core.metadata.DataType;
@@ -36,8 +37,8 @@ public class PointMetadata {
     /**
      * 点位使用平台的解码时
      */
-    @Schema(title = "当前支持的平台解码")
-    private List<Codec<?>> supportCodecs;
+    @Schema(title = "当前支持的解码器")
+    private List<CodecInfo> supportCodecs;
 
     /**
      * 当{@link PointMetadata#isAutoCodec()}为false时,此字段表示点位数据的字节长度,-1表示长度不确定.
