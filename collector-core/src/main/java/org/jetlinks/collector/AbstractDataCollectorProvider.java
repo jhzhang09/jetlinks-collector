@@ -58,22 +58,49 @@ public abstract class AbstractDataCollectorProvider extends AnnotationCommandSup
 
     @CommandHandler
     public Mono<List<PropertyMetadata>> getChannelConfigProperties(GetChannelConfigMetadataCommand command) {
-        return Mono.just(
-            CommandMetadataResolver.resolveInputs(ResolvableType.forType(channelConfigType))
-        );
+        List<PropertyMetadata> metadataList = CommandMetadataResolver.resolveInputs(ResolvableType.forType(channelConfigType));
+        extendChannelConfigMetadata(metadataList);
+        return Mono.just(metadataList);
     }
 
     @CommandHandler
     public Mono<List<PropertyMetadata>> getCollectorConfigProperties(GetCollectorConfigMetadataCommand command) {
-        return Mono.just(
-            CommandMetadataResolver.resolveInputs(ResolvableType.forType(collectorConfigType))
-        );
+        List<PropertyMetadata> metadataList = CommandMetadataResolver.resolveInputs(ResolvableType.forType(collectorConfigType));
+        extendCollectorConfigMetadata(metadataList);
+        return Mono.just(metadataList);
     }
 
     @CommandHandler
     public Mono<List<PropertyMetadata>> getPointConfigProperties(GetPointConfigMetadataCommand command) {
-        return Mono.just(
-            CommandMetadataResolver.resolveInputs(ResolvableType.forType(pointConfigType))
-        );
+        List<PropertyMetadata> metadataList = CommandMetadataResolver.resolveInputs(ResolvableType.forType(pointConfigType));
+        extendPointConfigMetadata(metadataList);
+        return Mono.just(metadataList);
+    }
+
+    /**
+     * 扩展通道配置元数据，子类可覆盖此方法为PropertyMetadata添加额外信息
+     *
+     * @param metadataList 配置元数据列表
+     */
+    protected void extendChannelConfigMetadata(List<PropertyMetadata> metadataList) {
+
+    }
+
+    /**
+     * 扩展采集器配置元数据，子类可覆盖此方法为PropertyMetadata添加额外信息
+     *
+     * @param metadataList 配置元数据列表
+     */
+    protected void extendCollectorConfigMetadata(List<PropertyMetadata> metadataList) {
+
+    }
+
+    /**
+     * 扩展点位配置元数据，子类可覆盖此方法为PropertyMetadata添加额外信息
+     *
+     * @param metadataList 配置元数据列表
+     */
+    protected void extendPointConfigMetadata(List<PropertyMetadata> metadataList) {
+
     }
 }
